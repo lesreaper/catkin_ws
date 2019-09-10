@@ -1,10 +1,50 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
 #IncludeRegexComplain: ^$
 
 #IncludeRegexTransform: 
+
+/home/workspace/catkin_ws/devel/include/ball_chaser/DriveToTarget.h
+ros/service_traits.h
+-
+ball_chaser/DriveToTargetRequest.h
+-
+ball_chaser/DriveToTargetResponse.h
+-
+
+/home/workspace/catkin_ws/devel/include/ball_chaser/DriveToTargetRequest.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/home/workspace/catkin_ws/devel/include/ball_chaser/DriveToTargetResponse.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
 
 /home/workspace/catkin_ws/src/ball_chaser/src/process_image.cpp
 ros/ros.h
