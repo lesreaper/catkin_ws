@@ -6,8 +6,8 @@
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
 int main(int argc, char** argv){
-  // Initialize the simple_navigation_goals node
-  ros::init(argc, argv, "simple_navigation_goals");
+  // Initialize the pick_objects node
+  ros::init(argc, argv, "pick_objects");
 
   //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
@@ -35,10 +35,38 @@ int main(int argc, char** argv){
   ac.waitForResult();
 
   // Check if the robot reached its goal
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-    ROS_INFO("Hooray, the base moved 1 meter forward");
-  else
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    ROS_INFO("Hooray, the base hit our pickup zone. Searching for delivery zone");
+    sleep(5);
+      // set up the frame parameters
+    goal.target_pose.header.frame_id = "map";
+    goal.target_pose.header.stamp = ros::Time::now();
+
+    // Define a position and orientation for the robot to reach
+    goal.target_pose.pose.position.x = 2.0;
+    goal.target_pose.pose.position.y = 2.0;
+    goal.target_pose.pose.orientation.w = 1.0;
+
+    // Send the goal position and orientation for the robot to reach
+    ROS_INFO("Sending goal");
+    ac.sendGoal(goal);
+
+    // Wait an infinite time for the results
+    ac.waitForResult();
+
+    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+      ROS_INFO("Hooray, reached delivery zone. Dropping off supplies.");
+      sleep(5);
+    }  
+    else {
+      ROS_INFO("The base failed to move forward 2 meters for some reason");
+    }
+
+  }
+    
+  else {
     ROS_INFO("The base failed to move forward 1 meter for some reason");
+  }
 
   return 0;
 }
