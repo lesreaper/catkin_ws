@@ -1,0 +1,9 @@
+#!/bin/sh
+
+xterm -e "cd /home/workspace/catkin_ws/; source devel/setup.bash; cd src/turtlebot_simulator/turtlebot_gazebo/launch/; roslaunch turtlebot_world.launch" &
+sleep 5
+xterm -e "cd /home/workspace/catkin_ws/; source devel/setup.bash; cd src/turtlebot_interactions/turtlebot_rviz_launchers/launch; roslaunch view_navigation.launch" &
+sleep 5
+xterm -e "cd /home/workspace/catkin_ws/; source devel/setup.bash; cd src/turtlebot_simulator/turtlebot_gazebo/launch; roslaunch gmapping_demo.launch" & 
+sleep 5
+xterm -e "cd /home/workspace/catkin_ws/; source devel/setup.bash; cd src/turtlebot/turtlebot_teleop/launch; roslaunch keyboard_teleop.launch"
